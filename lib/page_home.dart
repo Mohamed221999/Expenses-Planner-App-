@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import './widgets/transaction_list.dart';
-
+import './widgets/user_transaction.dart';
 class MyHomePage extends StatelessWidget {
 
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +21,7 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
-          //========================Input Area
-          Card(
-            elevation: 5,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(labelText: "Title"),
-                    //fetch input from titleText
-                    controller: titleController,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(labelText: "Amount"),
-                    //fetch input from amounText
-                    controller: amountController,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          TransactionList(),
+          UserTransaction(),
          ] 
          ),   
     );
