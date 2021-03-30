@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_expenses/models/transaction.dart';
 import 'package:intl/intl.dart';
+import './chart_bar.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransaction;
@@ -26,7 +27,13 @@ class Chart extends StatelessWidget {
       };
     });
   }
+   double get totalSpending{
+     return groupedTransactionValues.fold(0.0, (sum, element) {
 
+       return sum +element['amount'];
+
+     });
+   }
   @override
   Widget build(BuildContext context) {
     print(groupedTransactionValues);
@@ -35,9 +42,14 @@ class Chart extends StatelessWidget {
       margin: EdgeInsets.all(20),
       // row of 7 columns cotain 7 bars of 7 days
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ...groupedTransactionValues.map((e) {
-            return Text(e['day']);
+            return ChartBar(
+              lable: e['day'],
+              spendingAmount: e['amount'],
+              spendingPctOfTotal: totalSpending == 0.0? 0.0 :(e['amount']as double )/ totalSpending,
+            );
           }).toList(),
         ],
       ),

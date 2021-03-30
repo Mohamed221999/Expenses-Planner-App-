@@ -44,7 +44,6 @@ class TransactionList extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.2,
                   margin:
                       EdgeInsets.only(left: 10, top: 15, bottom: 15, right: 10),
                   decoration:
