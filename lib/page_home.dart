@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_expenses/widgets/new_transaction.dart';
 import 'package:personal_expenses/widgets/transaction_list.dart';
 import './models/transaction.dart';
+import './widgets/chart.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -9,16 +10,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransaction = [
-    //list of transaction
-    Transaction(
-        id: 't1', title: 'New Shose', amount: 79.99, date: DateTime.now()),
-    Transaction(
-        id: 't2',
-        title: 'Weekly Groceries',
-        amount: 55.25,
-        date: DateTime.now()),
-  ];
+  final List<Transaction> _userTransaction = [];
   //================================add Transaction
   void _addNewTransaction(String txtitle, double txamount) {
     final newTx = Transaction(
@@ -30,6 +22,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _userTransaction.add(newTx);
     });
+  }
+
+  List<Transaction> get recentTransaction {
+    
   }
 
 //====================================show transaction sheet
@@ -57,9 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       appBar: AppBar(
         actions: [
-          IconButton(icon: Icon(Icons.add), onPressed: () {
-            _startAddNewTransaction(context);
-          }),
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                _startAddNewTransaction(context);
+              }),
         ],
         title: Text('Personal Expenses'),
       ),
@@ -68,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Container(
           width: double.infinity,
           child: Card(
-            child: Text('Chart'),
+            child: Chart(),
             elevation: 5,
           ),
         ),

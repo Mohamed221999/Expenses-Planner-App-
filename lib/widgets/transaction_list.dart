@@ -12,7 +12,31 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.5,
-      child: ListView.builder(
+      child: transacton.isEmpty? Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
+          ),
+          Container( 
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                //decrease opacity================================================================
+                colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.9), BlendMode.dstOut),
+                image: AssetImage("assets/images/empty.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
+            ),
+          Text("No transaction added yet!",
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+          ),
+          ),
+        ],
+      ): ListView.builder(
         itemCount: transacton.length,
         itemBuilder: (context, index) {
         //==============================Transaction Part
@@ -24,7 +48,7 @@ class TransactionList extends StatelessWidget {
                   margin:
                       EdgeInsets.only(left: 10, top: 15, bottom: 15, right: 10),
                   decoration:
-                      BoxDecoration(border: Border.all(color: Colors.pink)),
+                      BoxDecoration(border: Border.all(color: Theme.of(context).primaryColor)),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
@@ -33,7 +57,7 @@ class TransactionList extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "\$" + transacton[index].amount.toStringAsFixed(2),
-                        style: TextStyle(color: Colors.pink, fontSize: 17),
+                        style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 17,fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
