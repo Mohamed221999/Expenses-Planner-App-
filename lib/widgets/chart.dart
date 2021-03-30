@@ -21,7 +21,7 @@ class Chart extends StatelessWidget {
         }
       }
       return {
-        'day': DateFormat.E(weekDay),
+        'day': DateFormat.E().format(weekDay),
         'amount': sum,
       };
     });
@@ -29,12 +29,17 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(groupedTransactionValues);
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
       // row of 7 columns cotain 7 bars of 7 days
       child: Row(
-        children: [],
+        children: [
+          ...groupedTransactionValues.map((e) {
+            return Text(e['day']);
+          }).toList(),
+        ],
       ),
     );
   }

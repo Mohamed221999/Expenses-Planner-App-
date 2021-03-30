@@ -25,7 +25,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Transaction> get recentTransaction {
-    
+    return _userTransaction.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7)
+      ),
+      );
+    }).toList();
   }
 
 //====================================show transaction sheet
@@ -66,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Container(
           width: double.infinity,
           child: Card(
-            child: Chart(),
+            child: Chart(recentTransaction: recentTransaction),
             elevation: 5,
           ),
         ),
