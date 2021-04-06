@@ -15,7 +15,9 @@ class ChartBar extends StatelessWidget {
     print(spendingPctOfTotal);
     return Column(
       children: [
-        Text("\$${spendingAmount.toString()}"),
+        FittedBox(
+          child: Text("\$${spendingAmount.toString()}")
+          ),
         SizedBox(
           height: 4,
         ),

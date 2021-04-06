@@ -41,45 +41,30 @@ class TransactionList extends StatelessWidget {
         itemBuilder: (context, index) {
         //==============================Transaction Part
           return Card(
-            child: Row(
-              children: [
-                Container(
-                  margin:
-                      EdgeInsets.only(left: 10, top: 15, bottom: 15, right: 10),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Theme.of(context).primaryColor)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 15,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "\$" + transacton[index].amount.toStringAsFixed(2),
-                        style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 17,fontWeight: FontWeight.bold),
-                      ),
-                    ),
+            margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+              elevation: 5,
+              child: ListTile(
+
+              leading: FittedBox(
+                  child: CircleAvatar(
+                    radius: 30,
+                  child: Text(
+                    '\$'+transacton[index].amount.toString()
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      transacton[index].title,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    //using intl package to formate the date============
-                    Text(
-                      DateFormat.yMMMd().format(transacton[index].date),
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ],
+              ),
+              subtitle: Text(
+                DateFormat.yMMMd().format(transacton[index].date).toString(),
+                
+              ),
+              title: Text(transacton[index].title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+              ),
+              trailing: Icon(Icons.delete,
+              color: Theme.of(context).primaryColor,
+              ),
             ),
           );
         },

@@ -40,17 +40,23 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: EdgeInsets.all(20),
       // row of 7 columns cotain 7 bars of 7 days
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ...groupedTransactionValues.map((e) {
-            return ChartBar(
-              lable: e['day'],
-              spendingAmount: e['amount'],
-              spendingPctOfTotal: totalSpending == 0.0? 0.0 :(e['amount']as double )/ totalSpending,
-            );
-          }).toList(),
-        ],
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ...groupedTransactionValues.map((e) {
+              return Flexible(
+                  fit: FlexFit.loose,
+                  child: ChartBar(
+                  lable: e['day'],
+                  spendingAmount: e['amount'],
+                  spendingPctOfTotal: totalSpending == 0.0? 0.0 :(e['amount']as double )/ totalSpending,
+                ),
+              );
+            }).toList(),
+          ],
+        ),
       ),
     );
   }
