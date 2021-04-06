@@ -10,15 +10,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransaction = [
-  ];
+  final List<Transaction> _userTransaction = [];
   //================================add Transaction
-  void _addNewTransaction(String txtitle, double txamount) {
+  void _addNewTransaction(
+      String txtitle, double txamount, DateTime chosenDate) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
         title: txtitle,
         amount: txamount,
-        date: DateTime.now());
+        date: chosenDate);
 
     setState(() {
       _userTransaction.add(newTx);
@@ -31,6 +31,13 @@ class _MyHomePageState extends State<MyHomePage> {
         DateTime.now().subtract(Duration(days: 7)),
       );
     }).toList();
+  }
+  //=================================delete Transaction
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((tx) => tx.id == id );
+    });
   }
 
 //====================================show transaction sheet
@@ -70,10 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
         //==============================Chart Part
         Container(
           width: double.infinity,
-          child:  Chart(recentTransaction: recentTransaction),
+          child: Chart(recentTransaction: recentTransaction),
         ),
         TransactionList(
           transacton: _userTransaction,
+          deleteTx: _deleteTransaction,
         ),
       ]),
     );

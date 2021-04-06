@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -13,16 +14,38 @@ class _NewTransactionState extends State<NewTransaction> {
 
   final amountController = TextEditingController();
 
-  void submittedData() {
+  void _submittedData() {
+    if (amountController.text.isEmpty) {
+      return;
+    }
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
+
     //==============check two text fields if there is invalide one i will return noting
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
     //==============add a new transaction
-    widget.addTx(enteredTitle, enteredAmount);
+    widget.addTx(enteredTitle, enteredAmount,_selectedDate);
     Navigator.of(context).pop();
+  }
+
+  DateTime _selectedDate;
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2500),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -37,30 +60,55 @@ class _NewTransactionState extends State<NewTransaction> {
               decoration: InputDecoration(labelText: "Title"),
               //fetch input from titleText
               controller: titleController,
-              onSubmitted: (_) => submittedData(),
+              onSubmitted: (_) => _submittedData(),
             ),
             TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(labelText: "Amount"),
               //fetch input from amounText
               controller: amountController,
-              onSubmitted: (_) => submittedData(),
+              onSubmitted: (_) => _submittedData(),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            TextButton(
-              onPressed: submittedData,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  TextButton(
+                      onPressed: _presentDatePicker,
+                      child: Text(
+                        "Choose Date",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      )),
                   Text(
+                    _selectedDate != null
+                        ? DateFormat.yMMMd().format(_selectedDate)
+                        : "No Date Chosen!",
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.2),
+              child: ElevatedButton(
+                onPressed: _submittedData,
+                child: Center(
+                  child: Text(
                     "Add Transaction",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
+                ),
               ),
             ),
           ],
