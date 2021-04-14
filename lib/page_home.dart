@@ -10,6 +10,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _showChart = false;
+  
   final List<Transaction> _userTransaction = [];
   //================================add Transaction
   void _addNewTransaction(
@@ -36,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _deleteTransaction(String id) {
     setState(() {
-      _userTransaction.removeWhere((tx) => tx.id == id );
+      _userTransaction.removeWhere((tx) => tx.id == id);
     });
   }
 
@@ -74,11 +76,24 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Personal Expenses'),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Show Chart",style: TextStyle(color: Theme.of(context).primaryColor),),
+              Switch(
+                  value: _showChart,
+                  onChanged: (val) {
+                    setState(() {
+                      _showChart = val;
+                    });
+                  }),
+            ],
+          ),
         //==============================Chart Part
-        Container(
+        _showChart==true? Container(
           width: double.infinity,
           child: Chart(recentTransaction: recentTransaction),
-        ),
+        ):Container(),
         TransactionList(
           transacton: _userTransaction,
           deleteTx: _deleteTransaction,
