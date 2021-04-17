@@ -10,7 +10,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _showChart = false;
+  bool _showChart = true;
   
   final List<Transaction> _userTransaction = [];
   //================================add Transaction
@@ -57,6 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final _isLandScape =
+      MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
@@ -76,24 +80,29 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Personal Expenses'),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Show Chart",style: TextStyle(color: Theme.of(context).primaryColor),),
-              Switch(
-                  value: _showChart,
-                  onChanged: (val) {
-                    setState(() {
-                      _showChart = val;
-                    });
-                  }),
-            ],
-          ),
+        _isLandScape==true? Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Show Chart",
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
+            Switch(
+                value: _showChart,
+                onChanged: (val) {
+                  setState(() {
+                    _showChart = val;
+                  });
+                }),
+          ],
+        ): Container(),
         //==============================Chart Part
-        _showChart==true? Container(
-          width: double.infinity,
-          child: Chart(recentTransaction: recentTransaction),
-        ):Container(),
+        _showChart == true
+            ? Container(
+                width: double.infinity,
+                child: Chart(recentTransaction: recentTransaction),
+              )
+            : Container(),
         TransactionList(
           transacton: _userTransaction,
           deleteTx: _deleteTransaction,

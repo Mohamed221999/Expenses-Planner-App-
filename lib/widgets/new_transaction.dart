@@ -50,68 +50,70 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: "Title"),
-              //fetch input from titleText
-              controller: titleController,
-              onSubmitted: (_) => _submittedData(),
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: "Amount"),
-              //fetch input from amounText
-              controller: amountController,
-              onSubmitted: (_) => _submittedData(),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      onPressed: _presentDatePicker,
-                      child: Text(
-                        "Choose Date",
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      )),
-                  Text(
-                    _selectedDate != null
-                        ? DateFormat.yMMMd().format(_selectedDate)
-                        : "No Date Chosen!",
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
-                ],
+    return SingleChildScrollView(
+          child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(top:10,left:10,right: 10,bottom: MediaQuery.of(context).viewInsets.bottom+10),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: "Title"),
+                //fetch input from titleText
+                controller: titleController,
+                onSubmitted: (_) => _submittedData(),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.2),
-              child: ElevatedButton(
-                onPressed: _submittedData,
-                child: Center(
-                  child: Text(
-                    "Add Transaction",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: "Amount"),
+                //fetch input from amounText
+                controller: amountController,
+                onSubmitted: (_) => _submittedData(),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                        onPressed: _presentDatePicker,
+                        child: Text(
+                          "Choose Date",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        )),
+                    Text(
+                      _selectedDate != null
+                          ? DateFormat.yMMMd().format(_selectedDate)
+                          : "No Date Chosen!",
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.2),
+                child: ElevatedButton(
+                  onPressed: _submittedData,
+                  child: Center(
+                    child: Text(
+                      "Add Transaction",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

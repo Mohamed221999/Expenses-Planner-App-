@@ -11,6 +11,10 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
+    final _isLandScape =
+      MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Expanded(
       child: Container(
        //
@@ -20,8 +24,8 @@ class TransactionList extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
+                  !(_isLandScape)? Container(
+                    width:  MediaQuery.of(context).size.width * 0.4,
                     height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -32,7 +36,7 @@ class TransactionList extends StatelessWidget {
                         fit: BoxFit.fill,
                       ),
                     ),
-                  ),
+                  ):Container(),
                   Text(
                     "No transaction added yet!",
                     style: TextStyle(
