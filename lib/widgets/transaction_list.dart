@@ -37,7 +37,7 @@ class TransactionList extends StatelessWidget {
                       ),
                     ),
                   ):Container(),
-                  Text(
+                  const Text(
                     "No transaction added yet!",
                     style: TextStyle(
                       fontSize: 16,
@@ -77,7 +77,7 @@ class TransactionList extends StatelessWidget {
                           deleteTx(transacton[index].id);
                         },
                         color: Theme.of(context).primaryColor,
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                       ),
                     ),
                   );
